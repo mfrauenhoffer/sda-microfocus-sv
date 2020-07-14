@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1">
     <header>
-        <identifier version="2" id="com.serena.air.plugin.example.Plugin-Template"
-                    name="Plugin Template"/>
+        <identifier version="1" id="com.serena.air.plugin.microfocussv"
+                    name="Micro Focus SV"/>
         <description>
-            This is an example plugin to provide a template for creating your own plugins.
+            This is a plugin to utilize Micro Focus Service Virtualization.
         </description>
         <tag>Automation/Template</tag>
     </header>
     <!-- ==================================== -->
     <!--   PLUGIN STEPS                       -->
     <!-- ==================================== -->
-    <step-type name="Example Step 1">
+    <step-type name="Change Service Mode">
         <description>An example step to demonstrate property inputs, outputs and execution</description>
         <properties>
             <property name="textBox" required="true">
@@ -72,7 +72,7 @@
             <arg file="${PLUGIN_OUTPUT_PROPS}"/>
         </command>
     </step-type>
-    <step-type name="Example Step 2">
+    <step-type name="Deploy Virtual Service">
         <description>An example step to illustrate error scanning through post processing</description>
         <properties>
             <property name="textAreaBox" required="true">
@@ -126,7 +126,40 @@
             <arg file="${PLUGIN_OUTPUT_PROPS}"/>
         </command>
     </step-type>
-    <step-type name="Example Step 3">
+    <step-type name="Export Virtual Service">
+        <description>An example step to illustrate plugin version upgrade</description>
+        <properties>
+            <property name="textAreaBox" required="true">
+                <property-ui type="textAreaBox" label="Text Area Box"
+                             description="Enter some values into the text area box."
+                             default-value="This is some example text."/>
+            </property>
+            <property name="debugMode" required="false">
+                <property-ui type="checkBox" label="Debug Output" hidden="true" default-value="true"
+                             description="Select this option to display debug output during execution."/>
+            </property>
+        </properties>
+        <!-- This is an example of how to add another step into a new plugin version -->
+        <post-processing>
+            <![CDATA[
+                if (properties.get("exitCode") != 0) {
+                    properties.put("Status", "Failure");
+                }
+                else {
+                    properties.put("Status", "Success");
+                }
+            ]]>
+        </post-processing>
+        <command program="${GROOVY_HOME}/bin/groovy">
+            <arg value="-cp"/>
+            <arg path="classes:lib/*"/>
+            <arg value="-Djnp.disableDiscovery=true"/>
+            <arg file="example_step_3.groovy"/>
+            <arg file="${PLUGIN_INPUT_PROPS}"/>
+            <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+        </command>
+    </step-type>
+    <step-type name="Undeploy Virtual Service">
         <description>An example step to illustrate plugin version upgrade</description>
         <properties>
             <property name="textAreaBox" required="true">

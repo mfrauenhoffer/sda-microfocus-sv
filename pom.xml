@@ -11,10 +11,10 @@
     </parent>
 
     <!-- Set your plugin's name, artifactId and description here -->
-    <artifactId>plugin-template</artifactId>
+    <artifactId>microfocus-sv</artifactId>
     <packaging>pom</packaging>
-    <name>Plugin-Template</name>
-    <description>A plugin template for creating your own plugins</description>
+    <name>Micro Focus DA Plugin for Micro Focus Service Virtualization</name>
+    <description>Plugin for Micro Focus Service Virtualization</description>
     <version>1.0</version>
 
     <properties>
@@ -52,6 +52,12 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.microfocus.sv</groupId>
+            <artifactId>svconfigurator</artifactId>
+            <version>5.3.1</version>
             <scope>runtime</scope>
         </dependency>
         <!-- These dependencies are required for the Serena helper classes and build process. -->
